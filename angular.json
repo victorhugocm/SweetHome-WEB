@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "SweetHome-WEB"
+    }
+  },
+  "defaultProject": "SweetHome-WEB",
+  "cli": {
+    "analytics": "38dbdf09-23a3-4808-98dd-ad9c0c64e142"
+  }
 }
