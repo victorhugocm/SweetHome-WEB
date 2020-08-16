@@ -7,8 +7,8 @@
         <h1>SweetHome</h1>
         <span class="menu-spacer"></span>
         <div>
-            <a mat-button [routerLink]="'/home'"> Home </a>
-            <a mat-button [routerLink]="'/about'"> About </a>
+            <a mat-button [routerLink]="'/home'"> Página Principal </a>
+            <a mat-button [routerLink]="'/about'"> Sobre </a>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
@@ -17,8 +17,9 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav>
       <mat-nav-list>
-        <a mat-list-item [routerLink]="'/home'"> Home </a>
-        <a mat-list-item [routerLink]="'/about'"> About </a>
+        <a mat-list-item [routerLink]="'/list-product'"> Listar Produtos </a>
+        <a mat-list-item [routerLink]="'/create-product'"> Novo Produto </a>
+        <a mat-list-item [routerLink]="'/create-order'"> Novo Pedido </a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
