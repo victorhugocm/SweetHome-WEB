@@ -1,5 +1,5 @@
 export interface Seller {
-    Id: number;
-    Nome: string;
-    Comissao: number;
+    id: number;
+    nome: string;
+    comissao: number;
 }

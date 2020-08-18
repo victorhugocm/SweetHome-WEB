@@ -1,6 +1,6 @@
 export interface Order {
-    Id: number;
-    VendedorId: number;
-    ValorVenda: number;
-    DataVenda: Date;
+    id: number;
+    vendedorId: number;
+    valorVenda: number;
+    dataVenda: Date;
 }
