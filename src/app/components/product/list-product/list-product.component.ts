@@ -10,7 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./list-product.component.css']
 })
 export class ListProductComponent implements OnInit {
-  displayedColumns: string[] = ['descricao', 'preco', 'cor', 'tamanho'];
+  displayedColumns: string[] = ['descricao', 'preco', 'cor', 'tamanho', 'actions'];
   dataSource;
 
   constructor(private productService: ProductService) { }
@@ -19,10 +19,14 @@ export class ListProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getAll().subscribe((data: Product[])=>{
-      console.log(data);
       this.dataSource = new MatTableDataSource<any>(data);
       this.dataSource.paginator = this.paginator;
     }) 
+  }
+
+  delete(id: any){
+    console.log(id);
+    this.productService.delete(id).subscribe();
   }
 
 }
