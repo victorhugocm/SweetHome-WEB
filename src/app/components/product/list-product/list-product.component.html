@@ -1,1 +1,29 @@
-<p>list-product works!</p>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Coluna Descrição -->
+    <ng-container matColumnDef="descricao">
+      <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+      <mat-cell *matCellDef="let product"> {{product.descricao}} </mat-cell>
+    </ng-container>
+  
+    <!-- Coluna Preço -->
+    <ng-container matColumnDef="preco">
+      <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
+      <mat-cell *matCellDef="let product"> {{product.preco}} </mat-cell>
+    </ng-container>
+  
+    <!-- Coluna Cor -->
+    <ng-container matColumnDef="cor">
+      <mat-header-cell *matHeaderCellDef> Cor </mat-header-cell>
+      <mat-cell *matCellDef="let product"> {{product.cor.descricao}} </mat-cell>
+    </ng-container>
+  
+    <!-- Coluna Tamanho -->
+    <ng-container matColumnDef="tamanho">
+      <mat-header-cell *matHeaderCellDef> Tamanho </mat-header-cell>
+      <mat-cell *matCellDef="let product"> {{product.tamanho.descricao}} </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
