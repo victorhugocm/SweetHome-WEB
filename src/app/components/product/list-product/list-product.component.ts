@@ -2,8 +2,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Product } from './../../../models/product/product';
 import { ProductService } from './../../../services/product/product.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-list-product',
