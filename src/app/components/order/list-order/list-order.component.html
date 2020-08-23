@@ -1,1 +1,46 @@
-<p>list-order works!</p>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Coluna Ações -->
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let order">
+            <div class="example-button-row">
+                <div class="example-flex-container">
+                    <div class="example-button-container">
+                        <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Data -->
+    <ng-container matColumnDef="data">
+        <mat-header-cell *matHeaderCellDef> Data da Venda </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.dataVenda|date:'dd/MM/yyyy HH:mm:ss'}} </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Valor -->
+    <ng-container matColumnDef="valor">
+        <mat-header-cell *matHeaderCellDef> Valor da Venda </mat-header-cell>
+        <mat-cell *matCellDef="let order"> R$ {{order.valorVenda}} </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Nome -->
+    <ng-container matColumnDef="nome">
+        <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let order"> {{order.vendedor.nome}} </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Comissão -->
+    <ng-container matColumnDef="comissao">
+        <mat-header-cell *matHeaderCellDef> Comissão </mat-header-cell>
+        <mat-cell *matCellDef="let order"> R${{(order.valorVenda*order.vendedor.comissao/100)|number:0}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
