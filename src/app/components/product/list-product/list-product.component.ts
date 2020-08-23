@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Product } from './../../../models/product/product';
 import { ProductService } from './../../../services/product/product.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -26,7 +27,13 @@ export class ListProductComponent implements OnInit {
 
   delete(id: any){
     console.log(id);
-    this.productService.delete(id).subscribe();
+    this.productService.delete(id).subscribe((res: Product)=>{
+      // Implementar lógica de recarregar a página
+      // console.log(res);
+      // if (true) {
+      //   window.location.reload();
+      // }
+    });
   }
 
 }
