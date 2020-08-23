@@ -23,6 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ListOrderComponent } from './components/order/list-order/list-order.component';
+import { DetailOrderComponent } from './components/order/detail-order/detail-order.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     CreateOrderComponent,
     ListProductComponent,
     CreateProductComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+    ListOrderComponent,
+    DetailOrderComponent
   ],
   imports: [
     BrowserModule,
