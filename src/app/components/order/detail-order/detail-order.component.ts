@@ -1,4 +1,10 @@
+import { ProductOrderService } from 'src/app/services/product-order/product-order.service';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ProductOrder } from 'src/app/models/product-order/product-order';
+import { MatTableDataSource } from '@angular/material/table';
+import { Product } from 'src/app/models/product/product';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-detail-order',
@@ -7,9 +13,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailOrderComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['descricao', 'cor', 'tamanho', 'preco', 'quantidade'];
+  dataSource;
+
+  constructor
+    (
+      private route: ActivatedRoute,
+      private productOrderService: ProductOrderService,
+      private productService: ProductService
+    ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(p => {
+      this.productOrderService.getAll().subscribe((data: ProductOrder[]) => {
+        this.dataSource = new MatTableDataSource<any>(
+          data.filter(x => x.vendaId == p['id'])
+        );
+      });
+    });
   }
-
 }

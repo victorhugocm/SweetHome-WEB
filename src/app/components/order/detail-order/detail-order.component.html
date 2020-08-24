@@ -1,1 +1,40 @@
-<p>detail-order works!</p>
+<mat-card class="example-table-header">
+    <h1>
+        Itens da Venda
+    </h1>
+</mat-card>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Coluna Descrição -->
+    <ng-container matColumnDef="descricao">
+        <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+        <mat-cell *matCellDef="let productOrder"> {{productOrder.produto.descricao}} </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Cor -->
+    <ng-container matColumnDef="cor">
+        <mat-header-cell *matHeaderCellDef> Cor </mat-header-cell>
+        <mat-cell *matCellDef="let productOrder"> {{productOrder.produto.cor.descricao}} </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Tamanho -->
+    <ng-container matColumnDef="tamanho">
+        <mat-header-cell *matHeaderCellDef> Tamanho </mat-header-cell>
+        <mat-cell *matCellDef="let productOrder"> {{productOrder.produto.tamanho.descricao}} </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Preço de Venda -->
+    <ng-container matColumnDef="preco">
+        <mat-header-cell *matHeaderCellDef> Preço Unitário de Venda </mat-header-cell>
+        <mat-cell *matCellDef="let productOrder"> R${{productOrder.precoProduto}} </mat-cell>
+    </ng-container>
+
+    <!-- Coluna Quantidade -->
+    <ng-container matColumnDef="quantidade">
+        <mat-header-cell *matHeaderCellDef> Quantidade </mat-header-cell>
+        <mat-cell *matCellDef="let productOrder"> {{productOrder.quantidade}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
