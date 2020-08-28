@@ -49,14 +49,12 @@ export class CreateProductComponent implements OnInit {
   loadSizes() {
     this.sizeService.getAll().subscribe((data: Size[]) => {
       this.sizes = data;
-      console.log(this.sizes);
     })
   }
 
   loadColors() {
     this.colorService.getAll().subscribe((data: Color[]) => {
       this.colors = data;
-      console.log(this.colors);
     })
   }
 

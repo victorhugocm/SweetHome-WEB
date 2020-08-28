@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductOrder } from 'src/app/models/product-order/product-order';
 import { MatTableDataSource } from '@angular/material/table';
-import { Product } from 'src/app/models/product/product';
-import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-detail-order',
@@ -16,12 +14,7 @@ export class DetailOrderComponent implements OnInit {
   displayedColumns: string[] = ['descricao', 'cor', 'tamanho', 'preco', 'quantidade'];
   dataSource;
 
-  constructor
-    (
-      private route: ActivatedRoute,
-      private productOrderService: ProductOrderService,
-      private productService: ProductService
-    ) { }
+  constructor(private route: ActivatedRoute, private productOrderService: ProductOrderService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(p => {

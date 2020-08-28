@@ -1,55 +1,57 @@
 <mat-card class="example-table-header">
   <h1>
-      Produtos
+    Produtos
   </h1>
 </mat-card>
 <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Coluna Descrição -->
-    <ng-container matColumnDef="descricao">
-      <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
-      <mat-cell *matCellDef="let product"> {{product.descricao}} </mat-cell>
-    </ng-container>
-  
-    <!-- Coluna Preço -->
-    <ng-container matColumnDef="preco">
-      <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
-      <mat-cell *matCellDef="let product"> R$ {{product.preco}} </mat-cell>
-    </ng-container>
-  
-    <!-- Coluna Cor -->
-    <ng-container matColumnDef="cor">
-      <mat-header-cell *matHeaderCellDef> Cor </mat-header-cell>
-      <mat-cell *matCellDef="let product"> {{product.cor.descricao}} </mat-cell>
-    </ng-container>
-  
-    <!-- Coluna Tamanho -->
-    <ng-container matColumnDef="tamanho">
-      <mat-header-cell *matHeaderCellDef> Tamanho </mat-header-cell>
-      <mat-cell *matCellDef="let product"> {{product.tamanho.descricao}} </mat-cell>
-    </ng-container>
+  <!-- Coluna Descrição -->
+  <ng-container matColumnDef="descricao">
+    <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+    <mat-cell *matCellDef="let product"> {{product.descricao}} </mat-cell>
+  </ng-container>
 
-    <!-- Coluna Ações -->
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
-      <mat-cell *matCellDef="let product">
-        <div class="example-button-row">
-          <div class="example-flex-container">
-            <div class="example-button-container">
-              <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
-                <mat-icon>edit</mat-icon>
-              </button>
-            </div>
-            <div class="example-button-container">
-              <button (click)="delete(product.id)" mat-mini-fab color="warn" aria-label="Example icon button with a filter list icon">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
+  <!-- Coluna Preço -->
+  <ng-container matColumnDef="preco">
+    <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
+    <mat-cell *matCellDef="let product"> R$ {{product.preco}} </mat-cell>
+  </ng-container>
+
+  <!-- Coluna Cor -->
+  <ng-container matColumnDef="cor">
+    <mat-header-cell *matHeaderCellDef> Cor </mat-header-cell>
+    <mat-cell *matCellDef="let product"> {{product.cor.descricao}} </mat-cell>
+  </ng-container>
+
+  <!-- Coluna Tamanho -->
+  <ng-container matColumnDef="tamanho">
+    <mat-header-cell *matHeaderCellDef> Tamanho </mat-header-cell>
+    <mat-cell *matCellDef="let product"> {{product.tamanho.descricao}} </mat-cell>
+  </ng-container>
+
+  <!-- Coluna Ações -->
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+    <mat-cell *matCellDef="let product">
+      <div class="example-button-row">
+        <div class="example-flex-container">
+          <div class="example-button-container">
+            <a [routerLink]="['/update-product']" [queryParams]="{id: product.id}" mat-mini-fab color="primary"
+              aria-label="Editar produto">
+              <mat-icon>edit</mat-icon>
+            </a>
+          </div>
+          <div class="example-button-container">
+            <button (click)="delete(product.id)" mat-mini-fab color="warn"
+              aria-label="Deletar produto">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
         </div>
-      </mat-cell>
-    </ng-container>
-  
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
