@@ -3,6 +3,7 @@ import { ColorService } from 'src/app/services/color/color.service';
 import { SizeService } from 'src/app/services/size/size.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Size } from 'src/app/models/size/size';
 import { Color } from 'src/app/models/color/color';
 import { Product } from 'src/app/models/product/product';
@@ -23,37 +24,49 @@ export class CreateProductComponent implements OnInit {
   sizes: Size[] = [];
   colors: Color[] = [];
 
-  constructor(private productService: ProductService, private sizeService: SizeService, private colorService: ColorService) { }
+  constructor(
+    private productService: ProductService,
+    private sizeService: SizeService,
+    private colorService: ColorService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.loadSize();
-    this.loadColor();
+    this.loadSizes();
+    this.loadColors();
   }
 
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.productForm.value);
     this.productService.create(this.productForm.value).subscribe((res: Product) => {
-      // Implementar lógica de recarregar a página
-      // console.log(res);
-      // if (true) {
-      //   window.location.reload();
-      // }
+      if (res.id > 0) {
+        let snackBarRef = this.openSnackBar('Produto criado com sucesso!', 'Sucesso');
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.cleanForm();
+        });
+      }
     });
-
   }
 
-  loadSize() {
+  loadSizes() {
     this.sizeService.getAll().subscribe((data: Size[]) => {
       this.sizes = data;
       console.log(this.sizes);
     })
   }
 
-  loadColor() {
+  loadColors() {
     this.colorService.getAll().subscribe((data: Color[]) => {
       this.colors = data;
       console.log(this.colors);
     })
+  }
+
+  openSnackBar(message: string, action: string): MatSnackBarRef<any> {
+    return this.snackBar.open(message, action, {
+      duration: 3000,
+    });
+  }
+
+  cleanForm() {
+    this.productForm.reset();
   }
 }
