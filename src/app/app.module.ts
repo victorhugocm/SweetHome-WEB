@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -12,6 +13,8 @@ import { CreateOrderComponent } from './components/order/create-order/create-ord
 import { ListProductComponent } from './components/product/list-product/list-product.component';
 import { CreateProductComponent } from './components/product/create-product/create-product.component';
 import { UpdateProductComponent } from './components/product/update-product/update-product.component';
+import { ListOrderComponent } from './components/order/list-order/list-order.component';
+import { DetailOrderComponent } from './components/order/detail-order/detail-order.component';
 
 //Módulos do Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -23,8 +26,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { ListOrderComponent } from './components/order/list-order/list-order.component';
-import { DetailOrderComponent } from './components/order/detail-order/detail-order.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +56,11 @@ import { DetailOrderComponent } from './components/order/detail-order/detail-ord
     MatCardModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
