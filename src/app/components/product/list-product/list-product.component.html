@@ -36,13 +36,13 @@
         <div class="example-flex-container">
           <div class="example-button-container">
             <a [routerLink]="['/update-product']" [queryParams]="{id: product.id}" mat-mini-fab color="primary"
-              aria-label="Editar produto">
+            matTooltip="Editar produto" aria-label="Editar produto">
               <mat-icon>edit</mat-icon>
             </a>
           </div>
           <div class="example-button-container">
             <button (click)="delete(product.id)" mat-mini-fab color="warn"
-              aria-label="Deletar produto">
+            matTooltip="Deletar produto" aria-label="Deletar produto">
               <mat-icon>delete</mat-icon>
             </button>
           </div>

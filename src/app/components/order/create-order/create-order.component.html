@@ -1,1 +1,155 @@
-<p>create-order works!</p>
+<!-- Cabeçalho -->
+<mat-card class="example-table-header">
+    <h1>
+        Cadastrar Venda
+    </h1>
+</mat-card>
+
+<!-- Capa do Pedido -->
+<mat-card class="example-table-header">
+    <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Vendedor</mat-label>
+                    <mat-select formControlName="vendedorid">
+                        <mat-option *ngFor="let seller of sellers" [value]="seller.id">
+                            {{seller.nome}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint><strong>Selecione um vendedor</strong> </mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor Total</mat-label>
+                    <input [readonly]="true" matInput type="number" formControlName="valorvenda">
+                    <span matPrefix>R$&nbsp;</span>
+                    <mat-hint><strong>Valor total da venda</strong> </mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12" style="text-align: right;">
+                <button mat-raised-button color="primary" type="submit">Salvar</button>
+            </div>
+        </div>
+    </form>
+</mat-card>
+
+<!-- Produtos Adicionados -->
+<mat-card class="example-table-header">
+    <mat-list>
+        <!-- Cabeçalho -->
+        <mat-list-item>Produtos Adicionados</mat-list-item>
+
+        <!-- Tabela -->
+        <mat-table [dataSource]="addedProductsSource" class="mat-elevation-z8">
+            <!-- Coluna Descrição -->
+            <ng-container matColumnDef="descricao">
+                <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+                <mat-cell *matCellDef="let addedProduct"> {{addedProduct.produto.descricao}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Preço -->
+            <ng-container matColumnDef="preco">
+                <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
+                <mat-cell *matCellDef="let addedProduct"> R$ {{addedProduct.precoProduto}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Cor -->
+            <ng-container matColumnDef="cor">
+                <mat-header-cell *matHeaderCellDef> Cor </mat-header-cell>
+                <mat-cell *matCellDef="let addedProduct"> {{addedProduct.produto.cor.descricao}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Tamanho -->
+            <ng-container matColumnDef="tamanho">
+                <mat-header-cell *matHeaderCellDef> Tamanho </mat-header-cell>
+                <mat-cell *matCellDef="let addedProduct"> {{addedProduct.produto.tamanho.descricao}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Quantidade -->
+            <ng-container matColumnDef="quantidade">
+                <mat-header-cell *matHeaderCellDef> Quantidade </mat-header-cell>
+                <mat-cell *matCellDef="let addedProduct"> {{addedProduct.quantidade}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Ações -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let addedProduct">
+                    <div class="example-button-row">
+                        <div class="example-flex-container">
+                            <div class="example-button-container">
+                                <button (click)="removeProductFromOrder(addedProduct.id)" mat-mini-fab color="warn"
+                                    matTooltip="Remover produto do pedido" aria-label="Remover produto do pedido">
+                                    <mat-icon>remove_shopping_cart</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsAddedProducts"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsAddedProducts;"></mat-row>
+        </mat-table>
+    </mat-list>
+</mat-card>
+
+<!-- Produtos Disponíveis -->
+<mat-card class="example-table-header">
+    <mat-list>
+        <!-- Cabeçalho -->
+        <mat-list-item>Produtos Disponíveis</mat-list-item>
+
+        <!-- Tabela -->
+        <mat-table [dataSource]="avaiableProductsSource" class="mat-elevation-z8">
+            <!-- Coluna Descrição -->
+            <ng-container matColumnDef="descricao">
+                <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
+                <mat-cell *matCellDef="let avaiableProduct"> {{avaiableProduct.descricao}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Preço -->
+            <ng-container matColumnDef="preco">
+                <mat-header-cell *matHeaderCellDef> Preço </mat-header-cell>
+                <mat-cell *matCellDef="let avaiableProduct"> R$ {{avaiableProduct.preco}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Cor -->
+            <ng-container matColumnDef="cor">
+                <mat-header-cell *matHeaderCellDef> Cor </mat-header-cell>
+                <mat-cell *matCellDef="let avaiableProduct"> {{avaiableProduct.cor.descricao}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Tamanho -->
+            <ng-container matColumnDef="tamanho">
+                <mat-header-cell *matHeaderCellDef> Tamanho </mat-header-cell>
+                <mat-cell *matCellDef="let avaiableProduct"> {{avaiableProduct.tamanho.descricao}} </mat-cell>
+            </ng-container>
+
+            <!-- Coluna Ações -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef="let avaiableProduct">
+                    <div class="example-button-row">
+                        <div class="example-flex-container">
+                            <div class="example-button-container">
+                                <button (click)="addProductToOrder(avaiableProduct.id)" mat-mini-fab color="primary"
+                                    matTooltip="Adicionar produto ao pedido" aria-label="Adicionar produto ao pedido">
+                                    <mat-icon>add_shopping_cart</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsAvaiableProducts"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsAvaiableProducts;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    </mat-list>
+</mat-card>

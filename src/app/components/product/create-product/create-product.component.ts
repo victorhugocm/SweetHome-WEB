@@ -7,6 +7,7 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Size } from 'src/app/models/size/size';
 import { Color } from 'src/app/models/color/color';
 import { Product } from 'src/app/models/product/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
@@ -25,6 +26,7 @@ export class CreateProductComponent implements OnInit {
   colors: Color[] = [];
 
   constructor(
+    private router: Router,
     private productService: ProductService,
     private sizeService: SizeService,
     private colorService: ColorService,
@@ -40,7 +42,7 @@ export class CreateProductComponent implements OnInit {
       if (res.id > 0) {
         let snackBarRef = this.openSnackBar('Produto criado com sucesso!', 'Sucesso');
         snackBarRef.afterDismissed().subscribe(() => {
-          this.cleanForm();
+          this.router.navigateByUrl('/list-product');
         });
       }
     });
@@ -62,9 +64,5 @@ export class CreateProductComponent implements OnInit {
     return this.snackBar.open(message, action, {
       duration: 3000,
     });
-  }
-
-  cleanForm() {
-    this.productForm.reset();
   }
 }
