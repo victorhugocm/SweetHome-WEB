@@ -7,6 +7,7 @@ import { Product } from 'src/app/models/product/product';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBarRef, MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-order',
@@ -41,13 +42,12 @@ export class CreateOrderComponent implements OnInit {
   //Paginador Tabela produtos disponíveis
   @ViewChild(MatPaginator, { static: true }) paginatorAvaiableProducts: MatPaginator;
 
-  //Paginador Tabela produtos adicionados
-  @ViewChild(MatPaginator, { static: true }) paginatorAddedProducts: MatPaginator;
   //Fim variáveis de controle
 
   constructor(
     private sellerService: SellerService,
-    private productService: ProductService) { }
+    private productService: ProductService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.loadSellers();
@@ -74,25 +74,32 @@ export class CreateOrderComponent implements OnInit {
 
   loadAddedProducts() {
     this.addedProductsSource = new MatTableDataSource<any>(this.addedProducts);
-    this.addedProductsSource.paginator = this.paginatorAddedProducts;
   }
 
   addProductToOrder(id: any) {
-    this.productService.getById(id).subscribe(p => {
-      this.addedProduct.produtoId = p.id;
-      this.addedProduct.precoProduto = p.preco;
-      this.addedProduct.quantidade = 1;
-      this.addedProduct.produto = p;
-      this.addedProducts.push(this.addedProduct);
-      this.resetAddedProduct();
-      this.loadAddedProducts();
-      console.log(this.addedProducts);
-      console.log(this.addedProduct);
-    });
+    let productExists = this.addedProducts.some(x => x.produtoId == id);
+    if (productExists) {
+      this.openSnackBar('Este produto já foi adicionado ao pedido!', 'Atenção');
+    }
+    else {
+      this.productService.getById(id).subscribe(p => {
+        this.addedProduct.produtoId = p.id;
+        this.addedProduct.precoProduto = p.preco;
+        this.addedProduct.quantidade = 1;
+        this.addedProduct.produto = p;
+        this.addedProducts.push(this.addedProduct);
+        this.resetAddedProduct();
+        this.loadAddedProducts();
+        this.openSnackBar('Produto adicionado ao pedido com sucesso!', 'Sucesso');
+      });
+    }
   }
 
   removeProductFromOrder(id: any) {
-    //Função de remover produtos do pedido.
+    let index = this.addedProducts.findIndex(x => x.produtoId == id);
+    this.addedProducts.splice(index, 1);
+    this.loadAddedProducts();
+    this.openSnackBar('Produto removido do pedido com sucesso!', 'Sucesso');
   }
 
   resetAddedProduct() {
@@ -129,5 +136,11 @@ export class CreateOrderComponent implements OnInit {
         }
       }
     }
+  }
+
+  openSnackBar(message: string, action: string): MatSnackBarRef<any> {
+    return this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 }
