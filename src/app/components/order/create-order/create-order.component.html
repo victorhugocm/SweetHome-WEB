@@ -72,7 +72,12 @@
             <!-- Coluna Quantidade -->
             <ng-container matColumnDef="quantidade">
                 <mat-header-cell *matHeaderCellDef> Quantidade </mat-header-cell>
-                <mat-cell *matCellDef="let addedProduct"> {{addedProduct.quantidade}} </mat-cell>
+                <mat-cell *matCellDef="let addedProduct">
+                    <mat-form-field>
+                        <input type="number" min="1" value="{{addedProduct.quantidade}}" matInput
+                            (input)="updateProductQuantity($event, addedProduct.produtoId)">
+                    </mat-form-field>
+                </mat-cell>
             </ng-container>
 
             <!-- Coluna Ações -->
@@ -82,8 +87,9 @@
                     <div class="example-button-row">
                         <div class="example-flex-container">
                             <div class="example-button-container">
-                                <button (click)="removeProductFromOrder(addedProduct.produtoId)" mat-mini-fab color="warn"
-                                    matTooltip="Remover produto do pedido" aria-label="Remover produto do pedido">
+                                <button (click)="removeProductFromOrder(addedProduct.produtoId)" mat-mini-fab
+                                    color="warn" matTooltip="Remover produto do pedido"
+                                    aria-label="Remover produto do pedido">
                                     <mat-icon>remove_shopping_cart</mat-icon>
                                 </button>
                             </div>

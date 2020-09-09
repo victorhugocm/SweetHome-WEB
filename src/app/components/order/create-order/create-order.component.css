@@ -30,3 +30,11 @@
     max-width: 100%;
     text-align: center;
   }
+
+  .mat-cell{
+    justify-content: center;
+  }
+
+  .mat-header-cell{
+    justify-content: center;
+  }

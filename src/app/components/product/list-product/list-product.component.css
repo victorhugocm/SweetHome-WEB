@@ -20,3 +20,11 @@
   .example-table-header{
     margin-bottom: 15px;
   }
+
+  .mat-cell{
+    justify-content: center;
+  }
+
+  .mat-header-cell{
+    justify-content: center;
+  }
